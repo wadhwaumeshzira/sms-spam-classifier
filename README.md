@@ -50,7 +50,7 @@ A Machine Learning and NLP-based SMS Spam Classifier that detects whether an SMS
 - Good precision & recall on spam class to reduce false positives/negatives  
 - Model generalizes well on test samples  
 
-*(You can add your actual metric values here: Accuracy, F1-Score, etc.)*
+
 
 ---
 
