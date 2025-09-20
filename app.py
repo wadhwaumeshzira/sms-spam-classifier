@@ -6,8 +6,19 @@ from nltk.corpus import stopwords
 import nltk
 from nltk.stem.porter import PorterStemmer
 
+# --- Download NLTK Data ---
+# This code will now run automatically when the app starts on Render.
+try:
+    nltk.data.find('tokenizers/punkt')
+except nltk.downloader.DownloadError:
+    nltk.download('punkt')
+try:
+    nltk.data.find('corpus/stopwords')
+except nltk.downloader.DownloadError:
+    nltk.download('stopwords')
+
+
 # --- Text Preprocessing Function ---
-# This should be the SAME function you used to train your model.
 ps = PorterStemmer()
 
 def transform_text(text):
@@ -27,15 +38,16 @@ def transform_text(text):
 
     return " ".join(y)
 
+
 # --- Load Model and Vectorizer ---
-# Make sure these files are in the same directory as app.py
 try:
     tfidf = pickle.load(open('vectorizer.pkl', 'rb'))
     model = pickle.load(open('model.pkl', 'rb'))
 except FileNotFoundError:
     print("Error: 'vectorizer.pkl' or 'model.pkl' not found.")
     print("Please make sure these files are in the same directory as app.py")
-    exit() # Exit if model files are not found
+    # This will cause the app to fail on startup if models are missing
+    raise
 
 
 # --- Initialize Flask App ---
@@ -49,20 +61,11 @@ def home():
 @app.route('/predict', methods=['POST'])
 def predict():
     try:
-        # Get the message from the POST request
         message = request.json['message']
-
-        # 1. Preprocess the message
         transformed_sms = transform_text(message)
-
-        # 2. Vectorize the message
         vector_input = tfidf.transform([transformed_sms])
-
-        # 3. Predict using the model
         result = model.predict(vector_input)[0]
 
-        # 4. Return the result as JSON
-        # 1 means Spam, 0 means Not Spam (Ham)
         if result == 1:
             prediction = "Spam"
         else:
@@ -75,15 +78,8 @@ def predict():
         return jsonify({'error': 'An error occurred during prediction.'}), 500
 
 
+# The if __name__ == '__main__' block is only for local development
+# and is not needed for the Render deployment.
 if __name__ == '__main__':
-    # Download necessary NLTK data
-    try:
-        nltk.data.find('tokenizers/punkt')
-    except nltk.downloader.DownloadError:
-        nltk.download('punkt')
-    try:
-        nltk.data.find('corpus/stopwords')
-    except nltk.downloader.DownloadError:
-        nltk.download('stopwords')
-        
     app.run(debug=True)
+
