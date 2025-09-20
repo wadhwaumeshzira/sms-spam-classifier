@@ -10,11 +10,11 @@ from nltk.stem.porter import PorterStemmer
 # This code will now run automatically when the app starts on Render.
 try:
     nltk.data.find('tokenizers/punkt')
-except nltk.downloader.DownloadError:
+except LookupError: # CORRECTED EXCEPTION
     nltk.download('punkt')
 try:
     nltk.data.find('corpus/stopwords')
-except nltk.downloader.DownloadError:
+except LookupError: # CORRECTED EXCEPTION
     nltk.download('stopwords')
 
 
