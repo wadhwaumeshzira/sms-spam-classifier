@@ -1,10 +1,14 @@
 #!/bin/bash
 
-# Exit on error
+# Exit on any error
 set -o errexit
 
-# Install Python dependencies
+# Install Python dependencies from requirements.txt
 pip install -r requirements.txt
 
-# Run the NLTK downloader
-python -c "import nltk; nltk.download('punkt'); nltk.download('stopwords')"
+# Create a directory for NLTK data within the project
+mkdir -p nltk_data
+
+# Run the NLTK downloader and specify the target directory
+python -c "import nltk; nltk.download('punkt', download_dir='nltk_data'); nltk.download('stopwords', download_dir='nltk_data')"
+
