@@ -6,8 +6,10 @@ from nltk.corpus import stopwords
 import nltk
 from nltk.stem.porter import PorterStemmer
 
-# NOTE: All nltk.download() calls have been removed from this file.
-# The build.sh script now handles the download process.
+# --- Add Local NLTK Data Path ---
+# This is the crucial line that tells NLTK to look in our new folder.
+nltk.data.path.append('./nltk_data')
+
 
 # --- Text Preprocessing Function ---
 ps = PorterStemmer()
