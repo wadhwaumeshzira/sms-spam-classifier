@@ -76,10 +76,11 @@
         const resultText = document.getElementById('result-text');
         const resultIcon = document.getElementById('result-icon');
 
-        // URL of your Flask API.
-        // When running locally, it will be http://127.0.0.1:5000/predict
-        // When you deploy, you'll change this to your deployed API URL.
-        const apiUrl = 'https://sms-spam-api-uh0t.onrender.com';
+        // ===================================================================
+        // FINAL STEP: Use your live API URL from Render here.
+        // It's crucial to add /predict at the end of the URL.
+        // ===================================================================
+        const apiUrl = 'https://sms-spam-api-uh0t.onrender.com/predict';
 
         predictBtn.addEventListener('click', async () => {
             const message = smsInput.value.trim();
@@ -160,6 +161,4 @@
 
 </body>
 </html>
-
-
 
