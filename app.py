@@ -7,15 +7,9 @@ import nltk
 from nltk.stem.porter import PorterStemmer
 
 # --- Download NLTK Data ---
-# This code will now run automatically when the app starts on Render.
-try:
-    nltk.data.find('tokenizers/punkt')
-except LookupError: # CORRECTED EXCEPTION
-    nltk.download('punkt')
-try:
-    nltk.data.find('corpus/stopwords')
-except LookupError: # CORRECTED EXCEPTION
-    nltk.download('stopwords')
+# This more direct approach ensures the data is downloaded on server start.
+nltk.download('punkt')
+nltk.download('stopwords')
 
 
 # --- Text Preprocessing Function ---
