@@ -5,6 +5,9 @@ import string
 from nltk.corpus import stopwords
 import nltk
 from nltk.stem.porter import PorterStemmer
+import nltk
+
+nltk.download('punkt')
 
 # --- Add Local NLTK Data Path ---
 # This is the crucial line that tells NLTK to look in our new folder.
@@ -55,4 +58,5 @@ def predict():
 
 if __name__ == '__main__':
     app.run(debug=True)
+
 
