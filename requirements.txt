@@ -1,3 +1,5 @@
-streamlit
-nltk
+flask
+flask-cors
 scikit-learn
+nltk
+gunicorn
